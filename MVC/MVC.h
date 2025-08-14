@@ -13,7 +13,7 @@ concept is_controller_type = requires
 };
 
 template<typename T, typename C>
-concept is_view_type = requires()
+concept is_view_type = requires
 {
 	std::is_base_of_v<View<C>, T>;
 };
