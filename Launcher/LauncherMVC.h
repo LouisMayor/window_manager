@@ -87,21 +87,12 @@ public:
 	wxBitmapButton* _image_button = nullptr;
 	wxButton* _button = nullptr;
 	wxPanel* _panel = nullptr;
-
-	// mvc
-	LauncherController* _controller = nullptr;
 };
 
 class LauncherController : public Controller<LauncherModel, LauncherView>
 {
 public:
-	void Init(LauncherModel& in_model, LauncherView& in_view) override;
 	void IncrementCounter();
-
-private:
-	// mvc
-	LauncherModel* _model = nullptr;
-	LauncherView* _view = nullptr;
 };
 
 class LauncherMVC : public MVC<LauncherController, LauncherView, LauncherModel>

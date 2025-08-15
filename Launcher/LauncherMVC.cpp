@@ -68,6 +68,8 @@ void LauncherModel::IncrementCounter()
 
 void LauncherView::Init(LauncherController& in_controller)
 {
+	View::Init(in_controller);
+
 	// todo: won't actually need this WndProc, as we will be overriding it with the LauncherWxFrame
 	// see constructor
 	_window_handle = Platform::CreateWindow(
@@ -78,20 +80,31 @@ void LauncherView::Init(LauncherController& in_controller)
 	_frame->CreateStatusBar();
 	_frame->SetStatusText(L"Hello World");
 
-	_panel = new wxPanel(_frame, wxID_ANY, wxDefaultPosition, wxSize(600, 800));
+	_panel = new wxPanel(
+		_frame,
+		wxID_ANY,
+		wxDefaultPosition,
+		wxSize(600, 800));
 
 	_taskbar_icon = new wxTaskBarIcon();
 
-	if (!_taskbar_icon->SetIcon(wxIcon("myIconImage2.ico", wxBITMAP_TYPE_ICO),
-				"wxTaskBarIcon Sample\n"
-				"With a very, very, very, very\n"
-				"long tooltip whose length is\n"
-				"greater than 64 characters."))
+	if (!_taskbar_icon->SetIcon(
+		wxIcon("myIconImage2.ico", wxBITMAP_TYPE_ICO),
+		"wxTaskBarIcon Sample\n"
+		"With a very, very, very, very\n"
+		"long tooltip whose length is\n"
+		"greater than 64 characters."))
 	{
 		wxLogError("Could not set icon.");
 	}
 
-	_button = new wxButton(_panel, wxID_ANY, "Test", wxPoint(10, 10), wxSize(100, 30));
+	_button = new wxButton(
+		_panel,
+		wxID_ANY,
+		"Test",
+		wxPoint(10, 10),
+		wxSize(100, 30));
+
 	_button->SetToolTip("TestTest");
 	_button->Bind(wxEVT_BUTTON, &LauncherView::OnButtonClick, this);
 
@@ -103,8 +116,6 @@ void LauncherView::Init(LauncherController& in_controller)
 		wxSize(100, 30));
 
 	// todo: bind _image_button and launch another app/window
-
-	_controller = &in_controller;
 }
 
 LauncherView::~LauncherView()
@@ -126,11 +137,6 @@ void LauncherView::OnButtonClick(wxCommandEvent& event)
 	_controller->IncrementCounter();
 }
 
-void LauncherController::Init(LauncherModel& in_model, LauncherView& in_view)
-{
-	_model = &in_model;
-	_view = &in_view;
-}
 
 void LauncherController::IncrementCounter()
 {
