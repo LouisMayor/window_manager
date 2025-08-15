@@ -107,6 +107,4 @@ private:
 
 class LauncherMVC : public MVC<LauncherController, LauncherView, LauncherModel>
 {
-public:
-	void Init() override;
 };

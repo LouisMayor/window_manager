@@ -32,7 +32,12 @@ requires
 class MVC
 {
 public:
-	virtual void Init() = 0;
+	virtual void Init()
+	{
+		_controller.Init(_model, _view);
+		_view.Init(_controller);
+	}
+
 	virtual ~MVC() = default;
 
 protected:

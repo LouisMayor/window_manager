@@ -123,9 +123,3 @@ void LauncherController::IncrementCounter()
 	_model->IncrementCounter();
 	_view->RefreshCounterView(_model->GetCounter());
 }
-
-void LauncherMVC::Init()
-{
-	_controller.Init(_model, _view);
-	_view.Init(_controller);
-}
