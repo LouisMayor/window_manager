@@ -1,6 +1,12 @@
 ﻿#include "LauncherMVC.h"
 
-#include "wx/icon.h"
+#include <wx/bmpbuttn.h>
+#include <wx/button.h>
+#include <wx/icon.h>
+#include <wx/log.h>
+#include <wx/panel.h>
+#include <wx/taskbar.h>
+
 #include "../resource.h"
 
 LauncherWxFrame::LauncherWxFrame(WXHWND inHWND) : wxFrame()
@@ -85,10 +91,18 @@ void LauncherView::Init(LauncherController& in_controller)
 		wxLogError("Could not set icon.");
 	}
 
-	// _button = new wxBitmapButton(_frame, wxID_ANY, wxBitmap("myIconImage2.ico", wxBITMAP_TYPE_ICO));
 	_button = new wxButton(_panel, wxID_ANY, "Test", wxPoint(10, 10), wxSize(100, 30));
 	_button->SetToolTip("TestTest");
 	_button->Bind(wxEVT_BUTTON, &LauncherView::OnButtonClick, this);
+
+	_image_button = new wxBitmapButton(
+		_panel,
+		wxID_ANY,
+		wxBitmap("myIconImage2.ico", wxBITMAP_TYPE_ICO),
+		wxPoint(110, 10),
+		wxSize(100, 30));
+
+	// todo: bind _image_button and launch another app/window
 
 	_controller = &in_controller;
 }

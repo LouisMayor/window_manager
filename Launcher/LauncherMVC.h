@@ -3,14 +3,13 @@
 #include "../MVC/MVC.h"
 #include "../Platforms/Platform.h"
 
-#include <wx/panel.h>
 #include <wx/frame.h>
-#include <wx/log.h>
-#include <wx/button.h>
-#include <wx/taskbar.h>
 
 class wxBitmapButton;
 class wxTaskBarIcon;
+class wxButton;
+class wxPanel;
+class wxCommandEvent;
 
 class LauncherModel;
 class LauncherView;
@@ -85,12 +84,12 @@ public:
 	LauncherWxFrame* _frame = nullptr;
 	wxTaskBarIcon* _taskbar_icon = nullptr;
 
-	// wxBitmapButton* _button = nullptr;
+	wxBitmapButton* _image_button = nullptr;
 	wxButton* _button = nullptr;
 	wxPanel* _panel = nullptr;
 
 	// mvc
-	LauncherController* _controller;
+	LauncherController* _controller = nullptr;
 };
 
 class LauncherController : public Controller<LauncherModel, LauncherView>
