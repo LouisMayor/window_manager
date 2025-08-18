@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "types.h"
 #include "Application/App.h"
+#include "Apps/AppService/AppService.h"
 #include "Platforms/Win/WinAPI.h"
 
 #define MAX_LOADSTRING 100
@@ -19,10 +20,10 @@ INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 u32 __stdcall		ConsoleInputThread(void* arg);
 
 // console app entry point
-i32 main()
-{
-	return 0;
-}
+// i32 main()
+// {
+// 	return 0;
+// }
 
 // windows app entry point
 i32 APIENTRY wWinMain(
@@ -64,7 +65,8 @@ i32 APIENTRY wWinMain(
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWMANAGER));
 
 	Platform::SetOSInstanceHandle(hInstance);
-	App app;
+	AppService app_service;
+	App app = App(app_service);
 	app.OnInit();
 
 	MSG msg;

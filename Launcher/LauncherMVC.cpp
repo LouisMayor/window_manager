@@ -8,6 +8,7 @@
 #include <wx/taskbar.h>
 
 #include "../resource.h"
+#include "../Apps/AppService/AppService.h"
 
 LauncherWxFrame::LauncherWxFrame(WXHWND inHWND) : wxFrame()
 {
@@ -108,6 +109,7 @@ void LauncherView::Init(LauncherController& in_controller)
 	_button->SetToolTip("TestTest");
 	_button->Bind(wxEVT_BUTTON, &LauncherView::OnButtonClick, this);
 
+	// AppService::GetInstance().GetAppIconPath(EAppType::WindowCreationTest);
 	_image_button = new wxBitmapButton(
 		_panel,
 		wxID_ANY,
@@ -115,7 +117,7 @@ void LauncherView::Init(LauncherController& in_controller)
 		wxPoint(110, 10),
 		wxSize(100, 30));
 
-	// todo: bind _image_button and launch another app/window
+	_image_button->Bind(wxEVT_BUTTON, &LauncherView::OnAppButtonClick, this);
 }
 
 LauncherView::~LauncherView()
@@ -137,6 +139,11 @@ void LauncherView::OnButtonClick(wxCommandEvent& event)
 	_controller->IncrementCounter();
 }
 
+void LauncherView::OnAppButtonClick(wxCommandEvent& event)
+{
+	AppService& inst = AppService::GetInstance();
+	inst.LaunchApp(EAppType::WindowCreationTest);
+}
 
 void LauncherController::IncrementCounter()
 {

@@ -1,0 +1,104 @@
+﻿#pragma once
+
+#include <memory>
+#include <type_traits>
+
+#include "StorableCallback.h"
+
+template<typename T>
+concept is_member_function_type = requires
+{
+	std::is_member_function_pointer_v<T>;
+};
+
+template<typename T>
+concept is_static_function_type = requires
+{
+	std::is_function_v<T>;
+};
+
+template<typename TCallback>
+requires
+	is_static_function_type<TCallback> ||
+	is_member_function_type<TCallback>
+struct StaticCallbackData
+{
+	TCallback _callback;
+};
+
+template<typename TCallback>
+requires
+	is_static_function_type<TCallback> || 
+	is_member_function_type<TCallback>
+struct RawStaticMethod : IStorableCallback
+{
+	RawStaticMethod(TCallback in_callback)
+		: _data{ in_callback }
+	{}
+
+	void Invoke() override
+	{
+		std::invoke(_data._callback);
+	}
+
+	StaticCallbackData<TCallback> _data;
+};
+
+struct StaticCallbackContainer
+{
+	template<typename TCallback>
+	requires
+		is_static_function_type<TCallback> || 
+		is_member_function_type<TCallback>
+	static StaticCallbackContainer sMake(TCallback in_callback)
+	{
+		return StaticCallbackContainer{new RawStaticMethod<TCallback>{ in_callback }};
+	}
+
+	StaticCallbackContainer()
+	{
+		_callback;
+	}
+
+	StaticCallbackContainer(IStorableCallback* in_callback)
+	{
+		_callback = std::unique_ptr<IStorableCallback>(in_callback);
+	}
+
+	StaticCallbackContainer(const StaticCallbackContainer& other)
+	{
+		_callback = std::unique_ptr<IStorableCallback>(other.GetCallback());
+	}
+
+	StaticCallbackContainer(StaticCallbackContainer&& other) noexcept
+	{
+		_callback = std::move(other._callback);
+	}
+
+	StaticCallbackContainer& operator=(const StaticCallbackContainer& other)
+	{
+		if (this == &other)
+		{
+			return *this;
+		}
+		return *this;
+	}
+
+	StaticCallbackContainer& operator=(StaticCallbackContainer&& other) noexcept
+	{
+		return *this;
+	}
+
+	void Invoke() const
+	{
+		_callback->Invoke();
+	}
+
+	IStorableCallback* GetCallback() const
+	{
+		return _callback.get();
+	}
+
+private:
+	std::unique_ptr<IStorableCallback> _callback = nullptr;
+};

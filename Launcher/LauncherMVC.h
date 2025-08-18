@@ -78,6 +78,7 @@ public:
 
 	void RefreshCounterView(i32 in_counter) const;
 	void OnButtonClick(wxCommandEvent& event);
+	void OnAppButtonClick(wxCommandEvent& event);
 
 	Platform::WindowHandle _window_handle;
 

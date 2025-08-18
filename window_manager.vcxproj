@@ -151,9 +151,13 @@
   <ItemGroup>
     <ClInclude Include="Application\App.h" />
     <ClInclude Include="Application\wx\WxApp.h" />
+    <ClInclude Include="Apps\AppService\AppService.h" />
+    <ClInclude Include="Apps\TestApps\CreateWindowApp.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Launcher\LauncherMVC.h" />
     <ClInclude Include="Launcher\LauncherWindow.h" />
+    <ClInclude Include="Misc\StaticCallbacks.h" />
+    <ClInclude Include="Misc\StorableCallback.h" />
     <ClInclude Include="MVC\Controller.h" />
     <ClInclude Include="MVC\Model.h" />
     <ClInclude Include="MVC\MVC.h" />
@@ -246,6 +250,8 @@
       <SDLCheck>true</SDLCheck>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="Apps\AppService\AppService.cpp" />
+    <ClCompile Include="Apps\TestApps\CreateWindowApp.cpp" />
     <ClCompile Include="Launcher\LauncherMVC.cpp" />
     <ClCompile Include="Launcher\LauncherWindow.cpp" />
     <ClCompile Include="MVC\Controller.cpp" />
@@ -344,6 +350,7 @@
     <Image Include="window_manager.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Misc\NonStaticCallbacks.h" />
     <Content Include="myIconImage.xpm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
