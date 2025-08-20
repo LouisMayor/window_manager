@@ -6,7 +6,7 @@
 class LauncherWindow
 {
 public:
-	LauncherWindow();
+	LauncherWindow(AppService& in_app_service);
 	~LauncherWindow();
 
 	LauncherMVC _mvc;

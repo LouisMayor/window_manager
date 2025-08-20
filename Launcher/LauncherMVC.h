@@ -5,6 +5,9 @@
 
 #include <wx/frame.h>
 
+#include "../Apps/AppService/AppService.h"
+
+enum class EAppType;
 class wxBitmapButton;
 class wxTaskBarIcon;
 class wxButton;
@@ -93,9 +96,17 @@ public:
 class LauncherController : public Controller<LauncherModel, LauncherView>
 {
 public:
+	explicit LauncherController(AppService& in_app_service);
 	void IncrementCounter();
+	void LaunchApp(EAppType in_app_type);
+
+private:
+	AppService& _app_service;
 };
 
 class LauncherMVC : public MVC<LauncherController, LauncherView, LauncherModel>
 {
+public:
+	// public scope for templated variadic argument constructor
+	using MVC<LauncherController, LauncherView, LauncherModel>::MVC;
 };

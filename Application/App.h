@@ -9,17 +9,14 @@
 
 #ifdef _WX
 
-class AppService;
-
 class App : public WxApp
 #endif
 {
 public:
-	[[nodiscard]] explicit App(AppService& app_service);
-
+	explicit App() = default;
 	virtual bool OnInit();
 
 private:
 	std::unique_ptr<LauncherWindow> _launcher_window = nullptr;
-	AppService& _app_service;
+	AppService _app_service;
 };

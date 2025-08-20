@@ -42,6 +42,8 @@ private:
 class AppService
 {
 public:
+	~AppService();
+
 	// todo: maybe put reg code into the registry and then you can just ask to run an app through the service
 	// that way, we aren't exposing too much to the view/controller
 	void RegisterApp(AppRegistery app);
@@ -50,10 +52,7 @@ public:
 	std::wstring_view GetAppIconPath(EAppType app_type);
 	void LaunchApp(EAppType app_type);
 
-	static AppService& GetInstance();
-
 private:
-	static inline std::unique_ptr<AppService> sInstance = nullptr;
 	std::vector<AppRegistery> _apps;
 	std::vector<std::future<void>> _app_threads;
 };

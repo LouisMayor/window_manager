@@ -26,6 +26,16 @@ std::wstring_view AppRegistery::GetIconPath() const
 	return _icon_path;
 }
 
+AppService::~AppService()
+{
+	for (std::future<void>& future : _app_threads)
+	{
+		future.wait();
+	}
+
+	_app_threads.clear();
+}
+
 void AppService::RegisterApp(AppRegistery app)
 {
 	auto it = std::ranges::find_if(_apps, [&app](AppRegistery& a)
@@ -85,11 +95,4 @@ void AppService::LaunchApp(EAppType app_type)
 
 		_app_threads.push_back(std::async(std::launch::async, launch, *it));
 	}
-}
-
-AppService& AppService::GetInstance()
-{
-	if (sInstance == nullptr)
-		sInstance = std::make_unique<AppService>();
-	return *sInstance;
 }

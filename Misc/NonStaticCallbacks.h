@@ -88,5 +88,7 @@ struct NonStaticCallbackContainer
 	}
 
 private:
+
+	// todo: move to shared base class
 	std::unique_ptr<IStorableCallback> _callback = nullptr;
 };

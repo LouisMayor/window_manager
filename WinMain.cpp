@@ -65,8 +65,7 @@ i32 APIENTRY wWinMain(
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWMANAGER));
 
 	Platform::SetOSInstanceHandle(hInstance);
-	AppService app_service;
-	App app = App(app_service);
+	App app;
 	app.OnInit();
 
 	MSG msg;

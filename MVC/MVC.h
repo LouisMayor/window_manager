@@ -32,6 +32,13 @@ requires
 class MVC
 {
 public:
+	MVC() = default;
+
+	// Construct controller with payload args (dependency injection)
+	template <typename... TControllerArgs>
+	explicit MVC(TControllerArgs&&... in_controller_args)
+		: _controller(std::forward<TControllerArgs>(in_controller_args)...) {}
+
 	virtual void Init()
 	{
 		_controller.Init(_model, _view);

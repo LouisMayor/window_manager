@@ -52,20 +52,15 @@ struct StaticCallbackContainer
 		is_member_function_type<TCallback>
 	static StaticCallbackContainer sMake(TCallback in_callback)
 	{
-		return StaticCallbackContainer{new RawStaticMethod<TCallback>{ in_callback }};
+		return StaticCallbackContainer(std::make_unique<RawStaticMethod<TCallback>>(in_callback));
 	}
 
-	StaticCallbackContainer()
+	StaticCallbackContainer(std::unique_ptr<IStorableCallback> in_callback)
 	{
-		_callback;
+		_callback = std::move(in_callback);
 	}
 
-	StaticCallbackContainer(IStorableCallback* in_callback)
-	{
-		_callback = std::unique_ptr<IStorableCallback>(in_callback);
-	}
-
-	StaticCallbackContainer(const StaticCallbackContainer& other)
+	StaticCallbackContainer(StaticCallbackContainer& other)
 	{
 		_callback = std::unique_ptr<IStorableCallback>(other.GetCallback());
 	}
@@ -84,7 +79,7 @@ struct StaticCallbackContainer
 		return *this;
 	}
 
-	StaticCallbackContainer& operator=(StaticCallbackContainer&& other) noexcept
+	StaticCallbackContainer& operator=([[maybe_unused]] StaticCallbackContainer&& other) noexcept
 	{
 		return *this;
 	}
@@ -94,11 +89,13 @@ struct StaticCallbackContainer
 		_callback->Invoke();
 	}
 
-	IStorableCallback* GetCallback() const
+private:
+	// todo: not the best design. considering it releases ownership, it could be a source of a memory leak
+	[[nodiscard]] IStorableCallback* GetCallback() 
 	{
-		return _callback.get();
+		return _callback.release();
 	}
 
-private:
+	// todo: move to shared base class
 	std::unique_ptr<IStorableCallback> _callback = nullptr;
 };

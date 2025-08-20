@@ -122,6 +122,7 @@ void LauncherView::Init(LauncherController& in_controller)
 
 LauncherView::~LauncherView()
 {
+	// todo: parent widgets and destroy root widget
 	delete _button;
 	delete _panel;
 	delete _taskbar_icon;
@@ -139,14 +140,23 @@ void LauncherView::OnButtonClick(wxCommandEvent& event)
 	_controller->IncrementCounter();
 }
 
-void LauncherView::OnAppButtonClick(wxCommandEvent& event)
+void LauncherView::OnAppButtonClick(wxCommandEvent& event) 
 {
-	AppService& inst = AppService::GetInstance();
-	inst.LaunchApp(EAppType::WindowCreationTest);
+	_controller->LaunchApp(EAppType::WindowCreationTest);
+}
+
+LauncherController::LauncherController(AppService& in_app_service)
+	: _app_service(in_app_service)
+{
 }
 
 void LauncherController::IncrementCounter()
 {
 	_model->IncrementCounter();
 	_view->RefreshCounterView(_model->GetCounter());
+}
+
+void LauncherController::LaunchApp(EAppType in_app_type)
+{
+	_app_service.LaunchApp(in_app_type);
 }
