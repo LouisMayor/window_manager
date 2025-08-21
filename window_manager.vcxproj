@@ -156,6 +156,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Launcher\LauncherMVC.h" />
     <ClInclude Include="Launcher\LauncherWindow.h" />
+    <ClInclude Include="Misc\Hashing.h" />
+    <ClInclude Include="Misc\RTTI\RTTI.h" />
     <ClInclude Include="Misc\StaticCallbacks.h" />
     <ClInclude Include="Misc\StorableCallback.h" />
     <ClInclude Include="MVC\Controller.h" />
@@ -254,6 +256,7 @@
     <ClCompile Include="Apps\TestApps\CreateWindowApp.cpp" />
     <ClCompile Include="Launcher\LauncherMVC.cpp" />
     <ClCompile Include="Launcher\LauncherWindow.cpp" />
+    <ClCompile Include="Misc\RTTI\RTTI.cpp" />
     <ClCompile Include="MVC\Controller.cpp" />
     <ClCompile Include="MVC\Model.cpp" />
     <ClCompile Include="MVC\MVC.cpp" />
@@ -350,8 +353,11 @@
     <Image Include="window_manager.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ARCHITECTURE.md" />
+    <Content Include="IMPROVEMENTS.md" />
     <Content Include="Misc\NonStaticCallbacks.h" />
     <Content Include="myIconImage.xpm" />
+    <Content Include="RTTI.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

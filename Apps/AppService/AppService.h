@@ -21,6 +21,16 @@ inline const char* to_string(EAppType e)
 	}
 }
 
+struct AppRegisteryView
+{
+	StaticCallbackContainerView& GetAppMain()
+	{
+		return _callback_view;
+	}
+
+	StaticCallbackContainerView _callback_view;
+};
+
 class AppRegistery
 {
 public:
@@ -32,6 +42,11 @@ public:
 	EAppType GetAppType() const;
 	StaticCallbackContainer& GetAppMain();
 	std::wstring_view GetIconPath() const;
+
+	AppRegisteryView ToView() const
+	{
+		return {_on_app_start.ToView()};
+	}
 
 private:
 	EAppType _app_type;

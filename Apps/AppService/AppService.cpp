@@ -88,11 +88,11 @@ void AppService::LaunchApp(EAppType app_type)
 	if (it != _apps.end())
 	{
 		// trigger app on a new thread
-		auto launch = [](AppRegistery in_app_registery)
+		auto launch = [](AppRegisteryView in_app_registery)
 		{
 			in_app_registery.GetAppMain().Invoke();
 		};
 
-		_app_threads.push_back(std::async(std::launch::async, launch, *it));
+		_app_threads.push_back(std::async(std::launch::async, launch, it->ToView()));
 	}
 }

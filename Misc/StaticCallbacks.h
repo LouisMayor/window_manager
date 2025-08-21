@@ -44,6 +44,19 @@ struct RawStaticMethod : IStorableCallback
 	StaticCallbackData<TCallback> _data;
 };
 
+
+struct StaticCallbackContainerView
+{
+	void Invoke() const
+	{
+		_callback->Invoke();
+	}
+
+	// non-owning callback
+	// todo: make it undeletable
+	IStorableCallback* _callback = nullptr;
+};
+
 struct StaticCallbackContainer
 {
 	template<typename TCallback>
@@ -68,6 +81,11 @@ struct StaticCallbackContainer
 	StaticCallbackContainer(StaticCallbackContainer&& other) noexcept
 	{
 		_callback = std::move(other._callback);
+	}
+
+	StaticCallbackContainerView ToView() const
+	{
+		return StaticCallbackContainerView{_callback.get()};
 	}
 
 	StaticCallbackContainer& operator=(const StaticCallbackContainer& other)
