@@ -157,7 +157,9 @@
     <ClInclude Include="Launcher\LauncherMVC.h" />
     <ClInclude Include="Launcher\LauncherWindow.h" />
     <ClInclude Include="Misc\Hashing.h" />
+    <ClInclude Include="Misc\RTTI\RTTI Tests\RTTITests.h" />
     <ClInclude Include="Misc\RTTI\RTTI.h" />
+    <ClInclude Include="Misc\RTTI\TypeId.h" />
     <ClInclude Include="Misc\StaticCallbacks.h" />
     <ClInclude Include="Misc\StorableCallback.h" />
     <ClInclude Include="MVC\Controller.h" />
@@ -257,6 +259,7 @@
     <ClCompile Include="Launcher\LauncherMVC.cpp" />
     <ClCompile Include="Launcher\LauncherWindow.cpp" />
     <ClCompile Include="Misc\RTTI\RTTI.cpp" />
+    <ClCompile Include="Misc\RTTI\TypeId.cpp" />
     <ClCompile Include="MVC\Controller.cpp" />
     <ClCompile Include="MVC\Model.cpp" />
     <ClCompile Include="MVC\MVC.cpp" />
