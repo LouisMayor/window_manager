@@ -1,12 +1,16 @@
 ﻿#include "App.h"
 
 #include "../Apps/TestApps/CreateWindowApp.h"
+#include "../Misc/RTTI/TypeCacheService.h"
 
 bool App::OnInit()
 {
-	_app_service.RegisterApp
+	_service_manager.RegisterService<TypeCacheService>();
+	_service_manager.RegisterService<AppService>();
+
+	_service_manager.GetService<AppService>()->RegisterApp
 	(
-		AppRegistery
+		AppRegistry
 		{
 			EAppType::WindowCreationTest,
 			L"",
@@ -15,7 +19,7 @@ bool App::OnInit()
 	);
 
 	const bool wx_res = WxApp::OnInit();
-	_launcher_window = std::make_unique<LauncherWindow>(_app_service);
+	_launcher_window = std::make_unique<LauncherWindow>(*_service_manager.GetService<AppService>());
 
 	return wx_res;
 }

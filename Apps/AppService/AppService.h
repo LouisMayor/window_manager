@@ -2,10 +2,10 @@
 
 #include <future>
 #include <string>
-#include <thread>
 #include <vector>
 
 #include "../../Misc/StaticCallbacks.h"
+#include "../Service/Service.h"
 
 enum class EAppType
 {
@@ -21,7 +21,7 @@ inline const char* to_string(EAppType e)
 	}
 }
 
-struct AppRegisteryView
+struct AppRegistryView
 {
 	StaticCallbackContainerView& GetAppMain()
 	{
@@ -31,10 +31,10 @@ struct AppRegisteryView
 	StaticCallbackContainerView _callback_view;
 };
 
-class AppRegistery
+class AppRegistry
 {
 public:
-	[[nodiscard]] explicit AppRegistery(
+	[[nodiscard]] explicit AppRegistry(
 		EAppType in_app_type,
 		std::wstring in_icon_path,
 		StaticCallbackContainer in_app_main);
@@ -43,7 +43,7 @@ public:
 	StaticCallbackContainer& GetAppMain();
 	std::wstring_view GetIconPath() const;
 
-	AppRegisteryView ToView() const
+	AppRegistryView ToView() const
 	{
 		return {_on_app_start.ToView()};
 	}
@@ -54,20 +54,22 @@ private:
 	StaticCallbackContainer _on_app_start;
 };
 
-class AppService
+// todo: probably better design to split this into app registry and 'app service'
+class AppService : public Service
 {
 public:
-	~AppService();
+	explicit AppService() = default;
+	virtual ~AppService();
 
 	// todo: maybe put reg code into the registry and then you can just ask to run an app through the service
 	// that way, we aren't exposing too much to the view/controller
-	void RegisterApp(AppRegistery app);
-	void UnregisterApp(AppRegistery app);
+	void RegisterApp(AppRegistry app);
+	void UnregisterApp(AppRegistry app);
 
 	std::wstring_view GetAppIconPath(EAppType app_type);
 	void LaunchApp(EAppType app_type);
 
 private:
-	std::vector<AppRegistery> _apps;
+	std::vector<AppRegistry> _apps;
 	std::vector<std::future<void>> _app_threads;
 };

@@ -7,22 +7,13 @@
 #include "View.h"
 
 template<typename T, typename M, typename V>
-concept is_controller_type = requires
-{
-	std::is_base_of_v<Controller<M, V>, T>;
-};
+concept is_controller_type = std::is_base_of_v<Controller<M, V>, T>;
 
 template<typename T, typename C>
-concept is_view_type = requires
-{
-	std::is_base_of_v<View<C>, T>;
-};
+concept is_view_type = std::is_base_of_v<View<C>, T>;
 
 template<typename T>
-concept is_model_type = requires
-{
-	std::is_base_of_v<Model, T>;
-};
+concept is_model_type = std::is_base_of_v<Model, T>;
 
 template <typename TController, typename TView, typename TModel>
 requires

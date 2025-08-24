@@ -11,6 +11,15 @@ struct TypeId
 	u64 id;
 };
 
+namespace std
+{
+	template<>
+	struct std::hash<TypeId>
+	{
+		size_t operator()(const TypeId& id) const noexcept;
+	};
+}
+
 // todo: make it match the other impls, seen below
 template <typename T>
 consteval std::string_view GetTypeName_ct() {

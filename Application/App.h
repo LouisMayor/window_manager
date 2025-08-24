@@ -5,6 +5,7 @@
 #endif
 
 #include "../Apps/AppService/AppService.h"
+#include "../Apps/ServiceManager/ServiceManager.h"
 #include "../Launcher/LauncherWindow.h"
 
 #ifdef _WX
@@ -18,5 +19,5 @@ public:
 
 private:
 	std::unique_ptr<LauncherWindow> _launcher_window = nullptr;
-	AppService _app_service;
+	ServiceManager _service_manager;
 };

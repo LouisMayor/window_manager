@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <utility>
 
-AppRegistery::AppRegistery(
+AppRegistry::AppRegistry(
 	EAppType in_app_type,
 	std::wstring in_icon_path,
 	StaticCallbackContainer in_app_main)
@@ -11,17 +11,17 @@ AppRegistery::AppRegistery(
 {
 }
 
-EAppType AppRegistery::GetAppType() const
+EAppType AppRegistry::GetAppType() const
 {
 	return _app_type;
 }
 
-StaticCallbackContainer& AppRegistery::GetAppMain() 
+StaticCallbackContainer& AppRegistry::GetAppMain() 
 {
 	return _on_app_start;
 }
 
-std::wstring_view AppRegistery::GetIconPath() const
+std::wstring_view AppRegistry::GetIconPath() const
 {
 	return _icon_path;
 }
@@ -36,9 +36,9 @@ AppService::~AppService()
 	_app_threads.clear();
 }
 
-void AppService::RegisterApp(AppRegistery app)
+void AppService::RegisterApp(AppRegistry app)
 {
-	auto it = std::ranges::find_if(_apps, [&app](AppRegistery& a)
+	auto it = std::ranges::find_if(_apps, [&app](AppRegistry& a)
 	{
 		return a.GetAppType() == app.GetAppType();
 	});
@@ -49,9 +49,9 @@ void AppService::RegisterApp(AppRegistery app)
 	}
 }
 
-void AppService::UnregisterApp(AppRegistery app)
+void AppService::UnregisterApp(AppRegistry app)
 {
-	auto it = std::ranges::find_if(_apps, [&app](AppRegistery& a)
+	auto it = std::ranges::find_if(_apps, [&app](AppRegistry& a)
 	{
 		return a.GetAppType() == app.GetAppType();
 	});
@@ -64,7 +64,7 @@ void AppService::UnregisterApp(AppRegistery app)
 
 std::wstring_view AppService::GetAppIconPath(EAppType app_type)
 {
-	auto it = std::ranges::find_if(_apps, [app_type](AppRegistery& a)
+	auto it = std::ranges::find_if(_apps, [app_type](AppRegistry& a)
 	{
 		return a.GetAppType() == app_type; 
 	});
@@ -79,7 +79,7 @@ std::wstring_view AppService::GetAppIconPath(EAppType app_type)
 
 void AppService::LaunchApp(EAppType app_type)
 {
-	auto it = std::ranges::find_if(_apps, [app_type](AppRegistery& a)
+	auto it = std::ranges::find_if(_apps, [app_type](AppRegistry& a)
 	{
 		return a.GetAppType() == app_type;
 	});
@@ -88,7 +88,7 @@ void AppService::LaunchApp(EAppType app_type)
 	if (it != _apps.end())
 	{
 		// trigger app on a new thread
-		auto launch = [](AppRegisteryView in_app_registery)
+		auto launch = [](AppRegistryView in_app_registery)
 		{
 			in_app_registery.GetAppMain().Invoke();
 		};

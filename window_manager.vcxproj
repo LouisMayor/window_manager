@@ -152,6 +152,8 @@
     <ClInclude Include="Application\App.h" />
     <ClInclude Include="Application\wx\WxApp.h" />
     <ClInclude Include="Apps\AppService\AppService.h" />
+    <ClInclude Include="Apps\ServiceManager\ServiceManager.h" />
+    <ClInclude Include="Apps\Service\Service.h" />
     <ClInclude Include="Apps\TestApps\CreateWindowApp.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Launcher\LauncherMVC.h" />
@@ -159,7 +161,9 @@
     <ClInclude Include="Misc\Hashing.h" />
     <ClInclude Include="Misc\RTTI\RTTI Tests\RTTITests.h" />
     <ClInclude Include="Misc\RTTI\RTTI.h" />
+    <ClInclude Include="Misc\RTTI\TypeCacheService.h" />
     <ClInclude Include="Misc\RTTI\TypeId.h" />
+    <ClInclude Include="Misc\RTTI\TypeInfo.h" />
     <ClInclude Include="Misc\StaticCallbacks.h" />
     <ClInclude Include="Misc\StorableCallback.h" />
     <ClInclude Include="MVC\Controller.h" />
@@ -255,11 +259,15 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="Apps\AppService\AppService.cpp" />
+    <ClCompile Include="Apps\ServiceManager\ServiceManager.cpp" />
+    <ClCompile Include="Apps\Service\Service.cpp" />
     <ClCompile Include="Apps\TestApps\CreateWindowApp.cpp" />
     <ClCompile Include="Launcher\LauncherMVC.cpp" />
     <ClCompile Include="Launcher\LauncherWindow.cpp" />
     <ClCompile Include="Misc\RTTI\RTTI.cpp" />
+    <ClCompile Include="Misc\RTTI\TypeCacheService.cpp" />
     <ClCompile Include="Misc\RTTI\TypeId.cpp" />
+    <ClCompile Include="Misc\RTTI\TypeInfo.cpp" />
     <ClCompile Include="MVC\Controller.cpp" />
     <ClCompile Include="MVC\Model.cpp" />
     <ClCompile Include="MVC\MVC.cpp" />
